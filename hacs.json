@@ -1,0 +1,10 @@
+{
+    "name": "Watergate",
+    "description": "Home Assistant integration for Watergate",
+    "domain": "watergate",
+    "render_readme": true,
+    "iot_class": "Local Push",
+    "homeassistant": "2024.10.0",
+    "codeowners": ["@watergate-ai"],
+    "config_flow": true
+  }
