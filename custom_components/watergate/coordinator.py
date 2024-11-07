@@ -68,3 +68,14 @@ class WatergateDataCoordinator(DataUpdateCoordinator[WatergateAgregatedRequests]
             )
         except WatergateApiException as exc:
             raise UpdateFailed from exc
+    
+    def async_set_updated_data(self, data: WatergateAgregatedRequests) -> None:
+        """Manually update data, notify listeners and DO NOT reset refresh interval."""
+
+        self.data = data
+        self.logger.debug(
+            "Manually updated %s data",
+            self.name,
+        )
+
+        self.async_update_listeners()
