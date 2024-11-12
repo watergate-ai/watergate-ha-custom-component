@@ -100,7 +100,7 @@ async def async_setup_entry(
             coordinator,
             WATER_METER_DURATION_SENSOR_NAME,
             WATER_METER_DURATION_ENTITY_NAME,
-            UnitOfTime.MILLISECONDS,
+            UnitOfTime.MINUTES,
             SensorDeviceClass.DURATION,
             lambda data: data.state.water_meter.duration
             if data.state and data.state.water_meter
