@@ -90,7 +90,7 @@ async def async_setup_entry(
             coordinator,
             WATER_METER_VOLUME_SENSOR_NAME,
             WATER_METER_VOLUME_ENTITY_NAME,
-            UnitOfVolume.MILLILITERS,
+            UnitOfVolume.LITERS,
             SensorDeviceClass.VOLUME,
             lambda data: data.state.water_meter.volume
             if data.state and data.state.water_meter
