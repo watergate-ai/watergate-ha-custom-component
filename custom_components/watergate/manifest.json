@@ -1,11 +1,12 @@
 {
   "domain": "watergate",
   "name": "Watergate",
-  "codeowners": ["@adam-the-hero"],
+  "codeowners": ["@nivek1612","@adam-the-hero"],
   "config_flow": true,
   "dependencies": ["http", "webhook"],
   "documentation": "https://www.home-assistant.io/integrations/watergate",
   "iot_class": "local_push",
   "requirements": ["watergate-local-api==2024.2.1"],
+  "issue_tracker": "https://github.com/nivek1612/watergate-ha-custom-component/issues",
   "version": "2024.11.2"
 }
