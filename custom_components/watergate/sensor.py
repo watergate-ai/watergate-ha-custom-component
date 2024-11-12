@@ -175,8 +175,8 @@ async def async_setup_entry(
             TEMPERATURE_ENTITY_NAME,
             UnitOfTemperature.CELSIUS,
             SensorDeviceClass.TEMPERATURE,
-            lambda data: data.telemetry.water_temperature
-            if data.telemetry and "temperature" not in data.telemetry.errors
+            lambda data: data.telemetry.water_temperature 
+            if data.telemetry and data.telemetry.errors is not None and "temperature" not in data.telemetry.errors
             else None,
         ),
         SonicSensor(
