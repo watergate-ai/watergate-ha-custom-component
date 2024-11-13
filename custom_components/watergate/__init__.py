@@ -102,7 +102,10 @@ def get_webhook_handler(
 
         if body_type == WEBHOOK_TELEMETRY_TYPE:
             # Ensure 'errors' is a dictionary, defaulting to empty if 'data' or 'data.errors' is None
-            errors = getattr(data, "errors", {}) if data else {}
+            if data:
+                errors = getattr(data, "errors", {})
+            else:
+                errors = {}
 
             # Set telemetry flow, pressure, and temperature, with None as default if there's an error
             coordinator_data.telemetry.flow = data.flow if errors.get("flow") is None else None
