@@ -186,7 +186,7 @@ async def async_setup_entry(
             UnitOfPressure.MBAR,
             SensorDeviceClass.PRESSURE,
             lambda data: data.telemetry.pressure
-            if data.telemetry and "pressure" not in data.telemetry.errors
+            if data.telemetry and data.telemetry.errors is not None and "pressure" not in data.telemetry.errors
             else None,
         ),
         SonicSensor(
@@ -196,7 +196,7 @@ async def async_setup_entry(
             UnitOfVolumeFlowRate.LITERS_PER_MINUTE,
             SensorDeviceClass.VOLUME_FLOW_RATE,
             lambda data: data.telemetry.flow / 1000
-            if data.telemetry and "flow" not in data.telemetry.errors
+            if data.telemetry and data.telemetry.errors is not None and "flow" not in data.telemetry.errors
             else None,
         ),
         SonicSensor(
