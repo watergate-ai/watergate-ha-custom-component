@@ -10,7 +10,7 @@ from watergate_local_api import WatergateLocalApiClient
 from watergate_local_api.models import WebhookEvent
 
 from homeassistant.components.http import HomeAssistantView
-from homeassistant.components.webhook import Request, Response, async_generate_url
+from homeassistant.components.webhook import Request, Response, async_generate_url, async_register, async_unregister
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_IP_ADDRESS, CONF_WEBHOOK_ID, Platform
 from homeassistant.core import HomeAssistant
@@ -52,10 +52,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: WatergateConfigEntry) ->
     coordinator = WatergateDataCoordinator(hass, watergate_client)
     entry.runtime_data = coordinator
 
-    hass.components.webhook.async_unregister(webhook_id)
-    hass.components.webhook.async_register(
-        DOMAIN, "Watergate", webhook_id, get_webhook_handler(coordinator)
-    )
+    async_unregister(hass, webhook_id)
+    async_register(hass, DOMAIN, "Watergate", webhook_id, get_webhook_handler(coordinator))
+
 
     _LOGGER.debug("Registered webhook: %s", webhook_id)
 
