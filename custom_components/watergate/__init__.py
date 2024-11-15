@@ -101,17 +101,16 @@ def get_webhook_handler(
             coordinator_data.state.valve_state = data.state
 
         if body_type == WEBHOOK_TELEMETRY_TYPE:
-            # Ensure 'errors' is a dictionary, defaulting to empty if 'data' or 'data.errors' is None
-            if data:
-                errors = getattr(data, "errors", {})
-            else:
-                errors = {}
-
-            # Set telemetry flow, pressure, and temperature, with None as default if there's an error
-            coordinator_data.telemetry.flow = data.flow if errors.get("flow") is None else None
-            coordinator_data.telemetry.pressure = data.pressure if errors.get("pressure") is None else None
-            coordinator_data.telemetry.water_temperature = data.temperature if errors.get("temperature") is None else None
-
+            errors = data.errors or {}
+            coordinator_data.telemetry.flow = (
+                data.flow if "flow" not in errors else None
+            )
+            coordinator_data.telemetry.pressure = (
+                data.pressure if "pressure" not in errors else None
+            )
+            coordinator_data.telemetry.water_temperature = (
+                data.temperature if "temperature" not in errors else None
+            )
         
         if body_type == WEBHOOK_WIFI_CHANGED_TYPE:
             coordinator_data.networking.ip = data.ip
