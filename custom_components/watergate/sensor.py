@@ -90,7 +90,7 @@ async def async_setup_entry(
             coordinator,
             WATER_METER_VOLUME_SENSOR_NAME,
             WATER_METER_VOLUME_ENTITY_NAME,
-            UnitOfVolume.MILLILITERS,
+            UnitOfVolume.LITERS,
             SensorDeviceClass.VOLUME,
             lambda data: data.state.water_meter.volume
             if data.state and data.state.water_meter
@@ -100,7 +100,7 @@ async def async_setup_entry(
             coordinator,
             WATER_METER_DURATION_SENSOR_NAME,
             WATER_METER_DURATION_ENTITY_NAME,
-            UnitOfTime.MILLISECONDS,
+            UnitOfTime.MINUTES,
             SensorDeviceClass.DURATION,
             lambda data: data.state.water_meter.duration
             if data.state and data.state.water_meter
@@ -175,8 +175,8 @@ async def async_setup_entry(
             TEMPERATURE_ENTITY_NAME,
             UnitOfTemperature.CELSIUS,
             SensorDeviceClass.TEMPERATURE,
-            lambda data: data.telemetry.water_temperature
-            if data.telemetry and "temperature" not in data.telemetry.errors
+            lambda data: data.telemetry.water_temperature 
+            if data.telemetry and data.telemetry.errors is not None and "temperature" not in data.telemetry.errors
             else None,
         ),
         SonicSensor(
@@ -186,7 +186,7 @@ async def async_setup_entry(
             UnitOfPressure.MBAR,
             SensorDeviceClass.PRESSURE,
             lambda data: data.telemetry.pressure
-            if data.telemetry and "pressure" not in data.telemetry.errors
+            if data.telemetry and data.telemetry.errors is not None and "pressure" not in data.telemetry.errors
             else None,
         ),
         SonicSensor(
@@ -196,7 +196,7 @@ async def async_setup_entry(
             UnitOfVolumeFlowRate.LITERS_PER_MINUTE,
             SensorDeviceClass.VOLUME_FLOW_RATE,
             lambda data: data.telemetry.flow / 1000
-            if data.telemetry and "flow" not in data.telemetry.errors
+            if data.telemetry and data.telemetry.errors is not None and "flow" not in data.telemetry.errors
             else None,
         ),
         SonicSensor(
