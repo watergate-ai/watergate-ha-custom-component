@@ -11,6 +11,7 @@ from homeassistant.components.sensor import (
     HomeAssistant,
     SensorDeviceClass,
     SensorEntity,
+    SensorStateClass,
     StateType,
 )
 from homeassistant.const import (
@@ -91,10 +92,11 @@ async def async_setup_entry(
             WATER_METER_VOLUME_SENSOR_NAME,
             WATER_METER_VOLUME_ENTITY_NAME,
             UnitOfVolume.LITERS,
-            SensorDeviceClass.VOLUME,
+            SensorDeviceClass.WATER,
             lambda data: data.state.water_meter.volume
             if data.state and data.state.water_meter
             else None,
+            state_class=SensorStateClass.TOTAL,
         ),
         SonicSensor(
             coordinator,
@@ -232,6 +234,7 @@ class SonicSensor(WatergateEntity, SensorEntity):
         device_class: SensorDeviceClass | None,
         extractor: Callable[[WatergateAgregatedRequests], str | int | float | None],
         entity_category: EntityCategory | None = None,
+        state_class: str | None = None,
     ) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator, entity_name)
@@ -240,6 +243,8 @@ class SonicSensor(WatergateEntity, SensorEntity):
         self.device_class = device_class
         if entity_category:
             self.entity_category = entity_category
+        if state_class:
+            self.state_class = state_class
         self._extractor = extractor
 
     @callback
