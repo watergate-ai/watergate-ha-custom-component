@@ -191,7 +191,8 @@ async def async_setup_entry(
             FLOW_ENTITY_NAME,
             UnitOfVolumeFlowRate.LITERS_PER_MINUTE,
             SensorDeviceClass.VOLUME_FLOW_RATE,
-            lambda data: data.telemetry.flow / 1000 if data.telemetry else None,
+            lambda data: (data.telemetry.flow / 1000) if (data.telemetry and data.telemetry.flow is not None) else None,
+
         ),
         SonicSensor(
             coordinator,
