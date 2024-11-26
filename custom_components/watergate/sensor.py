@@ -200,7 +200,7 @@ async def async_setup_entry(
             coordinator,
             UPTIME_SENSOR_NAME,
             UPTIME_ENTITY_NAME,
-            UnitOfTime.MILLISECONDS,
+            UnitOfTime.SECONDS,
             SensorDeviceClass.DURATION,
             lambda data: data.state.uptime if data.state else None,
             EntityCategory.DIAGNOSTIC,
