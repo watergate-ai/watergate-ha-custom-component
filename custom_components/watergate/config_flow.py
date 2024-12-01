@@ -49,7 +49,11 @@ class WatergateConfigFlow(ConfigFlow, domain=DOMAIN):
         """Validate the connection to the Watergate device."""
         try:
             return (
-                await WatergateLocalApiClient(ip_address).async_get_device_state()
+                await WatergateLocalApiClient(
+                    ip_address
+                    if ip_address.startswith("http")
+                    else f"http://{ip_address}"
+                ).async_get_device_state()
                 is not None
             )
         except WatergateApiException as exception:
