@@ -47,8 +47,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: WatergateConfigEntry) ->
         sonic_address,
     )
 
-    watergate_client = WatergateLocalApiClient(sonic_address)
-
+    watergate_client = WatergateLocalApiClient(
+        sonic_address if sonic_address.startswith("http") else f"http://{sonic_address}"
+    )
     coordinator = WatergateDataCoordinator(hass, watergate_client)
     entry.runtime_data = coordinator
 
