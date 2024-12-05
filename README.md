@@ -10,6 +10,7 @@ Currently we are in the process of integrating this component in Home Assistan c
 
 > ⚠️ **Note:** Ensure that you have enabled a Local API in Watergatge mobile application.
 
+> ⚠️ **Note:** Make sure your Home Assistant Local Network address is reachable from Sonic network.
 
 ## Installation
 
