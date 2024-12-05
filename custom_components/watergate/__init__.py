@@ -62,7 +62,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: WatergateConfigEntry) ->
     await coordinator.async_config_entry_first_refresh()
 
     await watergate_client.async_set_webhook_url(
-        async_generate_url(hass, webhook_id, allow_ip=True)
+        async_generate_url(hass, webhook_id, allow_ip=True, prefer_external=False)
     )
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
